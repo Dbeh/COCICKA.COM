@@ -7,6 +7,8 @@ $lastName = '';
 $email = '';
 $password = '';
 $message = '';
+$table = '';
+$table2 = '';
 
 
 if($_SERVER['REQUEST_METHOD'] == "POST") {
@@ -32,7 +34,18 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
     }
 
 
+}
 
+if($table = getUsers()){
+    $message = "ОК";
+} else {
+    $message = "Нет чуваков";
+}
+
+if($table2 = getArrUsers()){
+    $message = "ОК";
+} else {
+    $message = "Нет чуваков2";
 }
 
 include 'form.tpl.php';

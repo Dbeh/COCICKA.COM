@@ -27,5 +27,24 @@
 
 </form>
 
+    <?php if($table):?>
+        <p><?= $table?></p>
+    <?php endif;?>
+
+
+<hr>
+<table>
+    <thead>
+    <th>Имя</th>
+    <th>Фамилия</th>
+    <th>Email</th>
+    <th>Пароль</th>
+    </thead>
+    <tbody>
+    <?php foreach($table2 as $t):?>
+        <tr><td><?= $t[0]?></td><td><?= $t[1]?></td><td><?= $t[2]?></td><td><?= $t[3]?></td></tr>
+    <?php endforeach;?>
+    </tbody>
+    </table>
 </body>
 </html>
