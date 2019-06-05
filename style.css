@@ -1,0 +1,19 @@
+body{
+    width: 50%;
+    min-width: 800px;
+    margin: 0 auto;
+}
+.nav li {
+    text-decoration: none;
+    display: inline-block;
+}
+table, tr,td{
+    border: 1px solid black;
+    border-collapse: collapse;
+    padding: 5px;
+}
+
+.result{
+    font-size: 40px;
+    color: red;
+}
