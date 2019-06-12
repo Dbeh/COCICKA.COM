@@ -10,6 +10,14 @@ spl_autoload_register(function ($className){
     require $fileName;
 });
 
+try{
+    $form = new Form('post');
+} catch (InvalidArgumentException $exception){
+    die('кривой метод');
+}catch (Exception $exception) {
+    die('кривой метод 2');
+}
+
 
 $form = new Form();
 $form->add(new InputElement('first_name', 'Имя', true));

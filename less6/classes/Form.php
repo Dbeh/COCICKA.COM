@@ -23,6 +23,14 @@ class Form
      */
     public function __construct(string $method = 'post')
     {
+        $availableMethod = ['post', 'get'];
+        $method = strtolower($method);
+
+        if(!in_array($method, $availableMethod)){
+            throw new InvalidArgumentException('Method '.$method. 'is not avaiable');
+        }
+
+
         $this->method = strtolower($method);
     }
 
