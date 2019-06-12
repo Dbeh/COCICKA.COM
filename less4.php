@@ -67,7 +67,7 @@ function calc(){
     <input id="q" name="operand1" value="<?php echo empty($_POST['operand1'])?'':floatval($_POST['operand1'])?>" placeholder="операнд1">
 <select name="operator">
     <option value="+" <?php echo empty($_POST['operator'])== '+'?'selected':'';?>>+</option>
-    <option value="-" <?php echo empty($_POST['operator'])== '-'git?'selected':'';?>>-</option>
+    <option value="-" <?php echo empty($_POST['operator'])== '-'?'selected':'';?>>-</option>
     <option value="*" <?php echo empty($_POST['operator'])== '*'?'selected':'';?>>*</option>
     <option value="/" <?php echo empty($_POST['operator'])== '/'?'selected':'';?>>/</option>
 </select>

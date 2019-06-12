@@ -13,6 +13,19 @@ class Form
      */
     private $elements;
 
+    /**
+     * @var bool
+     */
+    private $isSubmitted = false;
+
+    /**
+     * @return FormElement[]
+     */
+    public function __construct(string $method = 'post')
+    {
+        $this->method = strtolower($method);
+    }
+
     public function  add(FormElement $element)
     {
         $this->elements[$element->getName()] = $element;
@@ -21,15 +34,50 @@ class Form
 
     public function render()
     {
-        $html = '<form>';
+        $html = sprintf('<form method="%s">', $this->method);
 
-        foreach ($this->elements as $el){
-            $html .= $el->render() . '<br>';
+        foreach ($this->elements as $element){
+            $html .= $element->render() . '<br>';
         }
 
         $html.= '</form>';
 
         return $html;
     }
+
+    public function handleRequest()
+    {
+        $data = $this->method == 'post'?$_POST:$_GET;
+
+        foreach ($this->elements as $element){
+            if(isset($data[$element->getName()])){
+                $this->isSubmitted = true;
+                $element->setValue($data[$element->getName()]);
+            }
+        }
+
+        foreach ($this->elements as $element){
+            if($element->getError()){
+                $this->isSubmitted = false;
+                break;
+            }
+        }
+    }
+
+    public function getValue($name)
+    {
+        return $this->elements[$name]->getValue();
+    }
+
+    /**
+     * @return bool
+     */
+    public function isSubmitted(): bool
+    {
+        return $this->isSubmitted;
+    }
+
+
+
 
 }

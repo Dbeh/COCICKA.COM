@@ -1,51 +1,38 @@
 <?php
+ini_set('error_reporting', E_ALL);
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
 
 require 'functions.php';
 
-$firstName = '';
-$lastName = '';
-$email = '';
-$password = '';
-$message = '';
-$table = '';
-$table2 = '';
+spl_autoload_register(function ($className){
+    $fileName = __DIR__.'/classes/'.$className.'.php';
+    require $fileName;
+});
 
 
-if($_SERVER['REQUEST_METHOD'] == "POST") {
-    $par = ['first_name', 'last_name', 'email', 'password'];
-
-    foreach ($par as $p) {
-        if (empty($_POST[$p])) {
-            return 'Не найден элемент' . $p;
-        }
-    }
-
-
-    $firstName = $_POST['first_name'];
-    $lastName = $_POST['last_name'];
-    $email = $_POST['email'];
-    $password = $_POST['password'];
+$form = new Form();
+$form->add(new InputElement('first_name', 'Имя', true));
+$form->add(new InputElement('last_name', 'Фамилия', true));
+$form->add(new EmailElement('email', 'Email', true));
+$form->add(new PasswordElement('password', 'Пароль', true));
+$form->add(new ButtonElement('submit', 'Зарегистрировать'));
+$form->handleRequest();
 
 
-    if(saveUser($firstName, $lastName, $email, $password)){
-        $message = "Пользователь зарегистрировался";
+if($form->isSubmitted()){
+    $result = saveUser(
+        $form->getValue('first_name'),
+        $form->getValue('last_name'),
+        $form->getValue('email'),
+        $form->getValue('password')
+    );
+
+    if($result){
+        $message = 'Пользователь зарегистрирован!';
     } else {
-        $message = "Ошибка при регистрации пользователя";
+        $message = 'Ошибка при регистрации пользователя';
     }
-
-
 }
 
-if($table = getUsers()){
-    $message = "ОК";
-} else {
-    $message = "Нет чуваков";
-}
-
-if($table2 = getArrUsers()){
-    $message = "ОК";
-} else {
-    $message = "Нет чуваков2";
-}
-
-include 'form.tpl.php';
+require 'form.tpl.php';

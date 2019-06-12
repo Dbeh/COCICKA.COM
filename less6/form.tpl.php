@@ -3,11 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <style>
+        .error{
+            color: red;
+        }
+    </style>
 </head>
 <body>
-
+<h3>Регистрация</h3>
 <?= $form->render()?>
 
+<?php if(isset($message)):?>
+<p><?= $message?></p>
+<?php endif;?>
 <!---->
 <!--<form method="post" action="../form.php">-->
 <!--    <label for="first_name">Имя</label>-->
