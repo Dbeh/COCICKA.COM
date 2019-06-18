@@ -14,6 +14,8 @@ $form = new Form();
 $form->add(new InputElement('first_name', 'Имя'));
 $form->add(new InputElement('last_name', 'Фамилия'));
 
-
+foreach ($form as $k=>$v){
+  echo $k.' - '.$v;
+}
 
 require 'form.tpl.php';
