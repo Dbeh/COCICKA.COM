@@ -29,14 +29,14 @@ $form->handleRequest();
 
 
 if($form->isSubmitted()){
-    $result = saveUser(
+    $result = saveUserDb(
         $form->getValue('first_name'),
         $form->getValue('last_name'),
         $form->getValue('email'),
         $form->getValue('password')
     );
 
-    if($result){
+ if($result){
         $message = 'Пользователь зарегистрирован!';
     } else {
         $message = 'Ошибка при регистрации пользователя';

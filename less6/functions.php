@@ -1,21 +1,46 @@
 <?php
 
-function saveUser(string $firstName, string  $lastName, string  $email, string  $password){
+//function saveUser(string $firstName, string  $lastName, string  $email, string  $password){
+//
+//    $file = fopen('users.txt', 'a');
+//
+//    if($file === false){
+//        return false;
+//    }
+//
+//    $row = sprintf("%s\t%s\t%s\t%s\n", $firstName, $lastName, $email, $password);
+//
+//    fputs($file, $row);
+//
+//    fclose($file);
+//
+//    return true;
+//
+//}
 
-    $file = fopen('users.txt', 'a');
 
-    if($file === false){
-        return false;
-    }
+/**
+ * @param string $firstName
+ * @param string $lastName
+ * @param string $email
+ * @param string $password
+ * @return bool
+ */
+function saveUserDb(string $firstName, string  $lastName, string  $email, string  $password){
 
-    $row = sprintf("%s\t%s\t%s\t%s\n", $firstName, $lastName, $email, $password);
+   $pdo = new PDO('mysql:host=localhost;dbname=test', 'root', 'root');
+   $query= $pdo->prepare('
+        INSERT INTO users (first_name, last_name, email, password)
+        VALUES (:first_name, :last_name, :email, :password)
+   ');
 
-    fputs($file, $row);
+   $query->bindValue('first_name', $firstName);
+   $query->bindValue('last_name', $lastName);
+   $query->bindValue('email', $email);
+   $query->bindValue('password', $password);
+   $query->execute();
 
-    fclose($file);
-
-    return true;
-
+   return true;
 }
 
 function getUsers(){
